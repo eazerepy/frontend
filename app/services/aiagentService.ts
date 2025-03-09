@@ -2,7 +2,7 @@ import api from "./api"
 
 export interface AIAgent {
   id: number
-  user_id: number // Added user_id
+  user_id: number 
   agent_name: string
   agent_bio: string[]
   agent_twitter: string

@@ -1,4 +1,3 @@
-import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import "bootstrap/dist/css/bootstrap.min.css"
@@ -15,6 +14,7 @@ export const metadata = {
   description: "Create AI Agent with One Click",
 }
 
+
 import { ReactNode } from "react";
 
 export default function RootLayout({ children }: { children: ReactNode }) {
@@ -22,14 +22,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     <html lang="en">
       <body>
         <AuthProvider>{children}</AuthProvider>
-        <Script
-          src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-          integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-          crossOrigin="anonymous"
-          strategy="afterInteractive"
-        />
       </body>
     </html>
   )
 }
-

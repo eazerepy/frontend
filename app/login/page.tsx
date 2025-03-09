@@ -14,7 +14,6 @@ export default function Login() {
   const [isLoading, setIsLoading] = useState(false)
   const [activeTab, setActiveTab] = useState("login")
   const [error, setError] = useState<string | null>(null)
-  const router = useRouter()
 
   const handleLogin = async (e: { preventDefault: () => void }) => {
     e.preventDefault()
@@ -49,7 +48,7 @@ export default function Login() {
       <div className="max-w-md mx-auto">
         <div className="bg-white rounded-lg shadow-xl overflow-hidden">
           <div className="bg-gradient-to-r from-purple-600 to-indigo-600 py-6 px-8">
-            <h2 className="text-2xl font-bold text-white">Welcome to EasyZerepy</h2>
+            <h2 className="text-2xl font-bold text-white">welcome to eazerepy</h2>
             <p className="text-purple-100 mt-1">Please login or register to continue</p>
           </div>
 
