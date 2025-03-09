@@ -1,6 +1,6 @@
 import api from "./api"
 
-export const login = async (username, password) => {
+export const login = async (username: string | Blob, password: string | Blob) => {
   const formData = new FormData()
   formData.append("username", username)
   formData.append("password", password)
@@ -16,7 +16,7 @@ export const login = async (username, password) => {
   return response.data
 }
 
-export const register = async (username, password) => {
+export const register = async (username: string, password: string) => {
   const response = await api.post("/auth", { username, password })
   return response.data
 }
