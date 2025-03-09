@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation"
 import { Settings, Key, ArrowLeft } from "lucide-react"
 import Header from "@/components/Header"
 import { createAIAgent } from "@/services/aiagentService"
+import { useAuth } from "@/context/AuthContext" // Add this import
 
 const apiKeyGroups = [
   {
@@ -16,7 +17,7 @@ const apiKeyGroups = [
       { name: "OPENAI_API_KEY", label: "OpenAI API Key" },
       { name: "GROQ_API_KEY", label: "Groq API Key" },
       { name: "XAI_API_KEY", label: "XAI API Key" },
-      { name: "TOGETHER_API_KEY", label: "Together API Key" },
+      { name: "TOGETHER_API_KEY", label: "Together AI Key" },
       { name: "HYPERBOLIC_API_KEY", label: "Hyperbolic API Key" },
       { name: "GALADRIEL_API_KEY", label: "Galadriel API Key" },
       { name: "GALADRIEL_FINE_TUNE_API_KEY", label: "Galadriel Fine Tune API Key" },
@@ -59,6 +60,7 @@ apiKeyGroups.forEach((group) => {
 
 export default function ConfigureSettings() {
   const router = useRouter()
+  const { user } = useAuth() // Get the authenticated user
   const [apiKeys, setApiKeys] = useState<Record<string, string>>(initialApiKeys)
   const [agentData, setAgentData] = useState<any>(null)
   const [expandedGroups, setExpandedGroups] = useState<Record<string, boolean>>({})
@@ -75,20 +77,18 @@ export default function ConfigureSettings() {
 
     const storedAgentData = localStorage.getItem("agentData")
     if (storedAgentData) {
-      console.log("Agent data found in localStorage", storedAgentData);
+      console.log("Agent data found in localStorage", storedAgentData)
       setAgentData(JSON.parse(storedAgentData))
-      console.log("Agent data found in localStorage", agentData);
-
+      console.log("Agent data found in localStorage", agentData)
     }
 
     const savedApiKeys = localStorage.getItem("apiKeys")
     if (savedApiKeys) {
       setApiKeys(JSON.parse(savedApiKeys))
-      console.log("API keys found in localStorage", savedApiKeys);
+      console.log("API keys found in localStorage", savedApiKeys)
     }
-    console.log("API keuysssss", apiKeys);
+    console.log("API keuysssss", apiKeys)
   }, [])
-
 
   const handleInputChange = (keyName: string, value: string) => {
     setApiKeys((prev) => ({
@@ -110,7 +110,7 @@ export default function ConfigureSettings() {
 
     // Save API keys to localStorage
     localStorage.setItem("apiKeys", JSON.stringify(apiKeys))
-    console.log("Agent Data", agentData)
+
     try {
       // Create AI agent
       const newAgent = await createAIAgent({
@@ -146,16 +146,9 @@ export default function ConfigureSettings() {
       })
 
       console.log("Agent created with:", newAgent)
-      // Simulate API call
-      setTimeout(() => {
-        setIsLoading(false)
-        // In a real app, you would send the agent data and API keys to your backend
-        console.log("Agent created with:", newAgent)
-        
-        // Navigate to success page or dashboard
-        alert("Agent created successfully!")
-        router.push("/")
-      }, 1500)
+      setIsLoading(false)
+      alert("Agent created successfully!")
+      router.push("/agents")
     } catch (error) {
       console.error("Failed to create agent:", error)
       setIsLoading(false)
@@ -248,3 +241,4 @@ export default function ConfigureSettings() {
     </div>
   )
 }
+

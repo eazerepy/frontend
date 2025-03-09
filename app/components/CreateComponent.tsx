@@ -5,9 +5,11 @@ import type React from "react"
 import { useState } from "react"
 import { useRouter } from "next/navigation"
 import { PlusCircle, X, Twitter, User, FileText, Tag } from "lucide-react"
+import { useAuth } from "@/context/AuthContext" // Add this import
 
 const CreateComponent = () => {
   const router = useRouter()
+  const { user } = useAuth() // Get the authenticated user
   const [agentName, setAgentName] = useState("")
   const [bioSentence, setBioSentence] = useState("")
   const [agentBio, setAgentBio] = useState<string[]>([])
@@ -60,11 +62,16 @@ const CreateComponent = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
 
-    const agentData = { agentName, agentBio, agentTwitter, traits }
+    // Store agent data in localStorage to pass to the settings page
+    const agentData = {
+      agentName,
+      agentBio,
+      agentTwitter,
+      traits,
+    }
     localStorage.setItem("agentData", JSON.stringify(agentData))
-    alert("Agent created successfully")
-    console.log("Agent data:", JSON.stringify(agentData))
-    alert("Agent data")
+
+    // Navigate to settings page
     router.push("/configure-settings")
   }
 
