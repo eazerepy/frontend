@@ -3,7 +3,6 @@
 import { useState } from "react"
 import { useRouter } from "next/navigation"
 import { useAuth } from "../context/AuthContext"
-import Layout from "../components/Layout"
 
 export default function Login() {
   const { login, register, error: authError } = useAuth()
@@ -13,10 +12,10 @@ export default function Login() {
   const [registerPassword, setRegisterPassword] = useState("")
   const [isLoading, setIsLoading] = useState(false)
   const [activeTab, setActiveTab] = useState("login")
-  const [error, setError] = useState(null)
+  const [error, setError] = useState<string | null>(null)
   const router = useRouter()
 
-  const handleLogin = async (e) => {
+  const handleLogin = async (e: { preventDefault: () => void }) => {
     e.preventDefault()
     setError(null)
     setIsLoading(true)
@@ -30,7 +29,7 @@ export default function Login() {
     }
   }
 
-  const handleRegister = async (e) => {
+  const handleRegister = async (e: { preventDefault: () => void }) => {
     e.preventDefault()
     setError(null)
     setIsLoading(true)
@@ -45,7 +44,6 @@ export default function Login() {
   }
 
   return (
-    <Layout>
       <div className="row justify-content-center">
         <div className="col-md-6">
           <div className="card shadow">
@@ -145,7 +143,6 @@ export default function Login() {
           </div>
         </div>
       </div>
-    </Layout>
   )
 }
 

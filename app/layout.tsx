@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-
-
 import "bootstrap/dist/css/bootstrap.min.css"
 import { AuthProvider } from "./context/AuthContext"
 import Script from "next/script"
@@ -12,20 +10,14 @@ const geistSans = Geist({
   subsets: ["latin"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-
-
-
-
 export const metadata = {
   title: "eazerepy",
   description: "Create AI Agent with One Click",
 }
 
-export default function RootLayout({ children }) {
+import { ReactNode } from "react";
+
+export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
       <body>
