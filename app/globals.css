@@ -37,3 +37,34 @@ a {
 .label-agent-class {
   display: flex;
 }
+
+.login-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.mainpage-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid red;
+}
+
+.scaleElement {
+  transform: scale(1.3);
+  margin-right: 40p;
+}
+
+.bodywrapper{
+  background-color: rgba(218, 45, 247,0.2) !important;
+}
+
+.bodywrapper-head {
+  background-color: rgba(218, 45, 247,0.15) !important;
+}
+
+.welcome-mascot {
+  transform: scale(1.15);
+}

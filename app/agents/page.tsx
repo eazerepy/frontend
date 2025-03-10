@@ -5,7 +5,8 @@ import { useRouter } from "next/navigation"
 import ProtectedRoute from "@/components/ProtectedRoute"
 import LoadingSpinner from "@/components/LoadingSpinner"
 import { getAIAgents, deleteAIAgent } from "@/services/aiagentService"
-import { Edit, Trash2, Settings, ExternalLink, Plus } from "lucide-react"
+import { Edit, Trash2, Cog, Plus, MessageCircle} from "lucide-react"
+
 import Link from "next/link"
 
 export default function Agents() {
@@ -56,7 +57,7 @@ export default function Agents() {
 
   return (
     <ProtectedRoute>
-        <div className="min-h-screen bg-gray-50 py-6 px-4">
+        <div className="bodywrapper min-h-screen bg-gray-50 py-6 px-4">
           <div className="max-w-7xl mx-auto">
             <div className="flex justify-between items-center mb-6">
               <h1 className="text-3xl font-bold text-gray-800">Your AI Agents</h1>
@@ -93,16 +94,18 @@ export default function Agents() {
             ) : (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {agents.map((agent) => (
+                 
                   <div key={agent.id} className="bg-white rounded-lg shadow-md overflow-hidden">
+                   
+                    <div>
                     <div className="bg-gradient-to-r from-purple-600 to-indigo-600 px-4 py-3 flex justify-between items-center">
                       <h2 className="text-lg font-semibold text-white">{agent.agent_name}</h2>
-                      <Link
-                        href={`/agents/${agent.id}`}
-                        className="p-1 bg-white bg-opacity-20 rounded-full hover:bg-opacity-30 transition-colors"
-                        title="View Agent"
+                      <a
+                        href={`/agents/${agent.id}/chat`}
+                        className="scaleElement px-3 py-1 bg-white border border-gray-300 text-gray-600 hover:bg-gray-50 rounded text-sm font-medium flex items-center"
                       >
-                        <ExternalLink size={16} className="text-white" />
-                      </Link>
+                        <MessageCircle size={14} className="mr-1" /> Chat
+                      </a>
                     </div>
                     <div className="p-4">
                       <div className="mb-4">
@@ -143,18 +146,23 @@ export default function Agents() {
                       )}
                     </div>
                     <div className="px-4 py-3 bg-gray-50 border-t border-gray-100 flex justify-between">
+                    
+
+                      <Link
+                        href={`/agents/${agent.id}`}
+                        className="px-3 py-1 bg-white border border-purple-500 text-purple-600 hover:bg-purple-50 rounded text-sm font-medium flex items-center"
+                      >
+                        <Cog size={14} className="mr-1" /> Detail
+                      </Link>
+
+
                       <Link
                         href={`/agents/${agent.id}/edit`}
                         className="px-3 py-1 bg-white border border-purple-500 text-purple-600 hover:bg-purple-50 rounded text-sm font-medium flex items-center"
                       >
                         <Edit size={14} className="mr-1" /> Edit
                       </Link>
-                      <Link
-                        href={`/agents/${agent.id}/settings`}
-                        className="px-3 py-1 bg-white border border-gray-300 text-gray-600 hover:bg-gray-50 rounded text-sm font-medium flex items-center"
-                      >
-                        <Settings size={14} className="mr-1" /> Settings
-                      </Link>
+
                       <button
                         onClick={() => handleDeleteAgent(agent.id)}
                         className="px-3 py-1 bg-white border border-red-300 text-red-600 hover:bg-red-50 rounded text-sm font-medium flex items-center"
@@ -162,6 +170,9 @@ export default function Agents() {
                         <Trash2 size={14} className="mr-1" /> Delete
                       </button>
                     </div>
+                  
+                  </div>
+                 
                   </div>
                 ))}
               </div>

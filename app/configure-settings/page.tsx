@@ -113,6 +113,7 @@ export default function ConfigureSettings() {
 
     try {
       // Create AI agent
+      console.log("Creating agent with:", apiKeys)
       const newAgent = await createAIAgent({
         agent_name: agentData?.agentName || "Default Agent Name",
         agent_bio: agentData?.agentBio || [],
@@ -161,7 +162,7 @@ export default function ConfigureSettings() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 text-gray-800">
+    <div className="bodywrapper min-h-screen bg-gray-50 text-gray-800">
       <Header />
 
       <div className="max-w-4xl mx-auto py-12 px-4 sm:px-6 lg:px-8">

@@ -92,7 +92,7 @@ const CreateComponent = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 text-gray-800 py-12 px-4 sm:px-6 lg:px-8">
+    <div className="bodywrapper min-h-screen bg-gray-50 text-gray-800 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-3xl mx-auto">
         <div className="bg-white rounded-lg shadow-xl overflow-hidden">
           <div className="bg-gradient-to-r from-purple-600 to-indigo-600 py-6 px-8">

@@ -36,6 +36,21 @@ export interface AIAgent {
   eternalai_api_url?: string
 }
 
+export interface Message {
+  id: number
+  conversation_id: number
+  role: string
+  content: string
+  created_at: string
+}
+
+export interface Conversation {
+  id: number
+  agent_id: number
+  created_at: string
+  messages: Message[]
+}
+
 export const getAIAgents = async (): Promise<AIAgent[]> => {
   const response = await api.get("/aiagents")
   return response.data
@@ -47,7 +62,7 @@ export const getAIAgent = async (id: number): Promise<AIAgent> => {
 }
 
 export const createAIAgent = async (
-  aiagentData: Omit<AIAgent, "id" | "user_id" | "created_at" | "updated_at">, // Updated to exclude user_id
+  aiagentData: Omit<AIAgent, "id" | "user_id" | "created_at" | "updated_at">,
 ): Promise<AIAgent> => {
   const response = await api.post("/aiagents", aiagentData)
   return response.data
@@ -62,3 +77,30 @@ export const deleteAIAgent = async (id: number): Promise<void> => {
   await api.delete(`/aiagents/${id}`)
 }
 
+export const getConversations = async (aiagentId: number): Promise<Conversation[]> => {
+  const response = await api.get(`/aiagents/${aiagentId}/conversations`)
+  return response.data
+}
+
+export const createConversation = async (aiagentId: number): Promise<Conversation> => {
+  const response = await api.post<Conversation>(`/aiagents/${aiagentId}/conversations`, { agent_id: aiagentId })
+  return response.data
+}
+
+export const getMessages = async (aiagentId: number, conversationId: number): Promise<Message[]> => {
+  const response = await api.get(`/aiagents/${aiagentId}/conversations/${conversationId}/messages`)
+  return response.data
+}
+
+export const createMessage = async (aiagentId: number, conversationId: number, messageData: Omit<Message, "id" | "created_at">): Promise<Message> => {
+  const response = await api.post(`/aiagents/${aiagentId}/conversations/${conversationId}/messages`, messageData)
+  return response.data
+}
+
+export const sendMessage = async (aiagentId: number,prompt: string): Promise<Message> => {
+  const response = await api.post(`/zerepy`, {
+    agent_id: aiagentId,
+    prompt
+  })
+  return response.data
+}
