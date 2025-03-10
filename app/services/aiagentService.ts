@@ -51,6 +51,14 @@ export interface Conversation {
   messages: Message[]
 }
 
+export interface ChatHistory {
+  role: string;
+  content: string;
+  created_at: string;
+  conversation_id: number;
+  id: number;
+}
+
 export const getAIAgents = async (): Promise<AIAgent[]> => {
   const response = await api.get("/aiagents")
   return response.data
@@ -97,10 +105,22 @@ export const createMessage = async (aiagentId: number, conversationId: number, m
   return response.data
 }
 
-export const sendMessage = async (aiagentId: number,prompt: string): Promise<Message> => {
+export const sendMessage =   async (aiagentId: number, chatHistory: Omit<ChatHistory, "id" | "created_at">): Promise<ChatHistory> => {
   const response = await api.post(`/zerepy`, {
     agent_id: aiagentId,
-    prompt
+    chatHistory
   })
   return response.data
 }
+
+export const sendMessageV2 = async ( aiagentId: number, chatHistory: ChatHistory[]): Promise<Message> => {
+  const response = await api.post(`/zerepy/v2`, {
+    agent_id: aiagentId,
+    chat_history: chatHistory.map((chat) => ({
+      ...chat,
+      conversation_id: 0
+    }))
+  });
+
+  return response.data;
+};

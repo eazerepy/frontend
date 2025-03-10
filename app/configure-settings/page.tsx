@@ -148,7 +148,9 @@ export default function ConfigureSettings() {
 
       console.log("Agent created with:", newAgent)
       setIsLoading(false)
+
       alert("Agent created successfully!")
+      localStorage.removeItem("apiKeys")
       router.push("/agents")
     } catch (error) {
       console.error("Failed to create agent:", error)

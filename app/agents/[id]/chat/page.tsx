@@ -11,6 +11,7 @@ import {
   getMessages,
   createMessage,
   sendMessage,
+  sendMessageV2,
   type AIAgent,
   type Conversation,
   type Message,
@@ -126,18 +127,37 @@ export default function AgentChat({ params }: { params: Promise<{ id: Number }>}
   
     try {
       // Send user message to the backend
-      await createMessage(agentId, conversation.id, {
+      const sentMessage = await createMessage(agentId, conversation.id, {
         conversation_id: conversation.id,
         role: userMessage.role,
         content: userMessage.content,
       })
+
+      setMessages((prev) => [
+        ...prev,
+        {
+          id: Date.now() + 1,
+          conversation_id: conversation.id,
+          role: "user",
+          content: userMessage.content,
+          created_at: new Date().toISOString(),
+        },
+      ])
+
+      const zerepyResponse = await sendMessageV2(agentId, messages);
   
-      const zerepyResponse = await sendMessage(agentId, userMessage.content)
+      // const zerepyResponse = await (agentId, 
+      //   {
+      //     conversation_id: conversation.id,
+      //     role: userMessage.role,
+      //     content: userMessage.content,
+      //   }
+      // )
       console.log("ZerepyResponse", zerepyResponse)
   
       await createMessage(agentId, conversation.id, {
         conversation_id: conversation.id,
-        role: "agent",
+        role: "assistant",
         content: JSON.stringify(zerepyResponse),
       })
   
@@ -146,7 +166,7 @@ export default function AgentChat({ params }: { params: Promise<{ id: Number }>}
         {
           id: Date.now() + 1,
           conversation_id: conversation.id,
-          role: "agent",
+          role: "assistant",
           content: JSON.stringify(zerepyResponse),
           created_at: new Date().toISOString(),
         },
@@ -189,20 +209,11 @@ export default function AgentChat({ params }: { params: Promise<{ id: Number }>}
     <ProtectedRoute>
       <div className="min-h-screen bg-gray-50 flex flex-col">
         {/* Header */}
-        <div className="bg-gradient-to-r from-purple-600 to-indigo-600 text-white p-4 shadow-md">
+        <div className="header-height bg-gradient-to-r from-purple-600 to-indigo-600 text-white p-4 shadow-md">
           <div className="max-w-7xl mx-auto flex items-center justify-between">
             <div className="flex items-center">
-              <button
-                onClick={() => router.back()}
-                className="mr-4 p-1 rounded-full bg-white bg-opacity-20 hover:bg-opacity-30 transition-colors"
-                aria-label="Go back"
-              >
-                <ArrowLeft size={20} className="text-white" />
-              </button>
+              
               <div className="flex items-center">
-                <div className="bg-white bg-opacity-20 p-2 rounded-full mr-3">
-                  <Bot size={20} className="text-white" />
-                </div>
                 <div>
                   <h1 className="text-xl font-bold">{agent.agent_name}</h1>
                   <p className="text-sm text-purple-100">{agent.traits.slice(0, 3).join(" • ")}</p>
@@ -311,7 +322,7 @@ export default function AgentChat({ params }: { params: Promise<{ id: Number }>}
                       key={message.id}
                       className={`flex ${message.role === "user" ? "justify-end" : "justify-start"} animate-fadeIn`}
                     >
-                      {message.role === "agent" && (
+                      {message.role === "assistant" && (
                         <div className="flex-shrink-0 mr-3">
                           <div className="bg-purple-100 p-2 rounded-full">
                             <Bot size={16} className="text-purple-600" />
@@ -326,14 +337,14 @@ export default function AgentChat({ params }: { params: Promise<{ id: Number }>}
                         }`}
                       >
                         <h6 className="font-semibold">
-                          {message.role === "agent" && message.content.startsWith("{")
+                          {message.role === "assistant" && message.content.startsWith("{")
                             ? JSON.parse(message.content)?.action?.toUpperCase()
                             : message.role === "user"
                               ? "USER"
                               : "AGENT"}
                         </h6>
                         <p className="leading-relaxed">
-                          {message.role === "agent" && message.content.startsWith("{")
+                          {message.role === "assistant" && message.content.startsWith("{")
                             ? JSON.parse(message.content)?.result
                             : message.content}
                         </p>

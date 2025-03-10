@@ -171,7 +171,7 @@ export default function LandingPage() {
               </div>
               <p className="text-xl text-gray-600 mb-8">
                 Build, customize, and deploy AI agents and integrate into Sonic's high-performance blockchain infrastructure.
-                Connect to your favorite services and automate your workflows.
+                Connect to your favorite services and automate your on-chain workflows.
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
                 <button
