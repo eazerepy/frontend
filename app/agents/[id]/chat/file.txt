@@ -127,7 +127,7 @@ export default function AgentChat({ params }: { params: Promise<{ id: Number }>}
     try {
       // Send user message to the backend
       await createMessage(agentId, conversation.id, {
-        conversation_id: conversation.id,
+        
         role: userMessage.role,
         content: userMessage.content,
       })
@@ -136,7 +136,6 @@ export default function AgentChat({ params }: { params: Promise<{ id: Number }>}
       console.log("ZerepyResponse", zerepyResponse)
 
       await createMessage(agentId, conversation.id, {
-        conversation_id: conversation.id,
         role: "agent",
         content: JSON.stringify(zerepyResponse),
       })

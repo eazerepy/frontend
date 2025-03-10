@@ -7,13 +7,18 @@ import LoadingSpinner from "@/components/LoadingSpinner"
 import { getAIAgent, type AIAgent } from "@/services/aiagentService"
 import { ArrowLeft, Edit, Settings, Twitter, Key, ExternalLink, MessageCircle } from "lucide-react"
 import Link from "next/link"
+import { use } from 'react';
 
-export default function AgentDetail({ params }: { params: { id: string } }) {
+export default function AgentDetail({ params }: { params: Promise<{ id: Number }>}) {
+
   const [agent, setAgent] = useState<AIAgent | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const router = useRouter()
-  const agentId = Number.parseInt(params.id)
+  
+  const { id } = use(params); 
+  const agentId = parseInt(String(id), 10)
+
 
   useEffect(() => {
     const fetchAgent = async () => {

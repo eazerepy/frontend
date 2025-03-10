@@ -5,7 +5,9 @@ import { useRouter } from "next/navigation"
 import { useAuth } from "../context/AuthContext"
 import LoadingSpinner from "./LoadingSpinner"
 
-const ProtectedRoute = ({ children }) => {
+import { ReactNode } from "react"
+
+const ProtectedRoute = ({ children }: { children: ReactNode }) => {
   const { isAuthenticated, loading } = useAuth()
   const router = useRouter()
 

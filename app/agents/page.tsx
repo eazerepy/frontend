@@ -10,7 +10,16 @@ import { Edit, Trash2, Cog, Plus, MessageCircle} from "lucide-react"
 import Link from "next/link"
 
 export default function Agents() {
-  const [agents, setAgents] = useState<[]>([])
+  interface AIAgent {
+    id: number;
+    agent_name: string;
+    agent_bio: string[];
+    traits?: string[];
+    agent_twitter?: string;
+    created_at?: string;
+  }
+
+  const [agents, setAgents] = useState<AIAgent[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const [successMessage, setSuccessMessage] = useState<string | null>(null)

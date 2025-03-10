@@ -9,10 +9,14 @@ import LoadingSpinner from "@/components/LoadingSpinner"
 import { getAIAgent, updateAIAgent, type AIAgent } from "@/services/aiagentService"
 import { ArrowLeft, Save, PlusCircle, X, Twitter, User, FileText, Tag, Key } from "lucide-react"
 import Link from "next/link"
+import { use } from 'react';
 
-export default function EditAgent({ params }: { params: { id: string } }) {
+
+export default function EditAgent({ params }: { params: Promise<{ id: Number }>}) {
   const router = useRouter()
-  const agentId = Number.parseInt(params.id)
+    
+    const { id } = use(params); 
+    const agentId = parseInt(String(id), 10)
 
   const [loading, setLoading] = useState(true)
   const [saving, setSaving] = useState(false)

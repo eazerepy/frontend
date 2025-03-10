@@ -96,28 +96,29 @@ export default function LandingPage() {
       >
         <div className="max-w-7xl mx-auto flex justify-between items-center">
           <div className="flex items-center">
-            <div className="bg-gradient-to-r from-purple-600 to-indigo-600 p-2 rounded-lg mr-2">
+            <div className="scaleElement">
+              <img src="/eazerepy.png" alt="eazerepy" width={50} height={50} /> 
             </div>
             <span className="text-2xl font-bold bg-gradient-to-r from-purple-600 to-indigo-600 text-transparent bg-clip-text">
               eazerepy
             </span>
           </div>
-          <nav className="md:flex space-x-8">
+          <nav className="md:flex space-x-8 text-xl">
             <button
               onClick={() => scrollToSection("auth")}
-              className="text-gray-600 hover:text-purple-600 transition-colors"
+              className="mariginal text-gray-600 hover:text-purple-600 transition-colors"
             >
               Login
             </button>
             <button
               onClick={() => scrollToSection("features")}
-              className="text-gray-600 hover:text-purple-600 transition-colors"
+              className="mariginal text-gray-600 hover:text-purple-600 transition-colors"
             >
               Features
             </button>
             <button
               onClick={() => scrollToSection("how-it-works")}
-              className="text-gray-600 hover:text-purple-600 transition-colors"
+              className="mariginal text-gray-600 hover:text-purple-600 transition-colors"
             >
               How It Works
             </button>
@@ -125,7 +126,7 @@ export default function LandingPage() {
               href="https://docs.soniclabs.com/sonic/overview"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-gray-600 hover:text-purple-600 transition-colors flex items-center"
+              className="mariginal text-gray-600 hover:text-purple-600 transition-colors flex items-center"
             >
               Sonic Docs <ExternalLink className="ml-1 h-3 w-3" />
             </a>
@@ -139,18 +140,28 @@ export default function LandingPage() {
           <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center">
             <div className="animate-fadeIn">
               <div className="mb-6">
-                <h1 className="text-5xl sm:text-6xl font-extrabold mb-2">
-                  <span className="text-purple-600">Easy</span>
-                  <span className="text-purple-600" style={{
-                    margin:"0 10px"
-                  }}>+</span>
-                  <span className="text-indigo-600">Zerepy</span>
-                </h1>
-                <p className="bg-gradient-to-r from-purple-600 to-indigo-600 text-transparent bg-clip-text mb-4 ml-10" style={{
-                  fontSize: "40px"
-                }}>
-                  eazerepy
-                </p>
+              <h1 className="text-5xl sm:text-6xl font-extrabold mb-2">
+                <span className="bg-gradient-to-r from-purple-600 to-indigo-600 text-transparent bg-clip-text">
+                  easy
+                </span>
+                <span
+                  className="bg-gradient-to-r from-purple-600 to-indigo-600 text-transparent bg-clip-text mx-2"
+                  style={{ margin: "0 10px" }}
+                >
+                  +
+                </span>
+                <span className="bg-gradient-to-r from-purple-600 to-indigo-600 text-transparent bg-clip-text">
+                  zerepy
+                </span>
+              </h1>
+
+              <p
+                className="bg-gradient-to-r from-purple-600 to-indigo-600 text-transparent bg-clip-text mb-4 ml-10"
+                style={{ fontSize: "40px" }}
+              >
+                eazerepy
+              </p>
+
                 <h2 className="text-3xl sm:text-4xl font-bold text-gray-900">
                   AI Agent Kit for{" "}
                   <span className="bg-gradient-to-r from-purple-600 to-indigo-600 text-transparent bg-clip-text">
@@ -193,10 +204,10 @@ export default function LandingPage() {
               <div className="absolute -bottom-8 -right-8 w-64 h-64 bg-indigo-200 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-2000"></div>
               <div className="absolute inset-0 w-64 h-64 mx-auto my-auto bg-pink-200 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-4000"></div>
               <div className="relative">
-                <div className="w-full h-[400px] bg-white rounded-2xl shadow-xl p-6 border border-gray-100 hover:shadow-2xl transition-shadow duration-300">
+                <div className="overflow-hidden  w-full h-[400px] bg-white rounded-2xl shadow-xl p-6 border border-gray-100 hover:shadow-2xl transition-shadow duration-300">
                   <div className="flex items-center mb-6">
-                    <div className="bg-purple-100 p-3 rounded-full mr-4">
-                      <Bot className="h-8 w-8 text-purple-600" />
+                    <div className="flex-center bg-purple-100 p-1 rounded-full mr-4">
+                    <img src="/eazerepy.png" alt="eazerepy" width={60} height={60} /> 
                     </div>
                     <div>
                       <h3 className="text-lg font-semibold text-gray-800">Sonic Assistant</h3>
@@ -208,7 +219,7 @@ export default function LandingPage() {
                   </div>
                   <div className="space-y-4">
                     <div className="flex">
-                      <div className="bg-gray-100 p-2 rounded-full mr-3">
+                      <div className="flex-center bg-gray-100 p-2 rounded-full mr-3">
                         <User className="h-5 w-5 text-gray-600" />
                       </div>
                       <div className="bg-gray-100 rounded-2xl p-3 max-w-[80%]">
@@ -216,7 +227,7 @@ export default function LandingPage() {
                       </div>
                     </div>
                     <div className="flex">
-                      <div className="bg-purple-100 p-2 rounded-full mr-3">
+                      <div className="flex-center bg-purple-100 p-2 rounded-full mr-3">
                         <Bot className="h-5 w-5 text-purple-600" />
                       </div>
                       <div className="bg-white border border-gray-200 rounded-2xl p-3 max-w-[80%] shadow-sm">
@@ -287,7 +298,7 @@ export default function LandingPage() {
                 {activeTab === "login" ? (
                   <form onSubmit={handleLogin} className="space-y-4">
                     <div className="space-y-2">
-                      <label className="flex items-center text-sm font-medium text-gray-700">
+                      <label className="label-agent-class flex items-center text-sm font-medium text-gray-700">
                         <User className="mr-2 h-5 w-5 text-purple-600" />
                         Username
                       </label>
@@ -300,7 +311,7 @@ export default function LandingPage() {
                       />
                     </div>
                     <div className="space-y-2">
-                      <label className="flex items-center text-sm font-medium text-gray-700">
+                      <label className="label-agent-class flex items-center text-sm font-medium text-gray-700">
                         <Lock className="mr-2 h-5 w-5 text-purple-600" />
                         Password
                       </label>
@@ -323,7 +334,7 @@ export default function LandingPage() {
                 ) : (
                   <form onSubmit={handleRegister} className="space-y-4">
                     <div className="space-y-2">
-                      <label className="flex items-center text-sm font-medium text-gray-700">
+                      <label className="label-agent-class flex items-center text-sm font-medium text-gray-700">
                         <User className="mr-2 h-5 w-5 text-purple-600" />
                         Username
                       </label>
@@ -336,7 +347,7 @@ export default function LandingPage() {
                       />
                     </div>
                     <div className="space-y-2">
-                      <label className="flex items-center text-sm font-medium text-gray-700">
+                      <label className="label-agent-class flex items-center text-sm font-medium text-gray-700">
                         <Lock className="mr-2 h-5 w-5 text-purple-600" />
                         Password
                       </label>
