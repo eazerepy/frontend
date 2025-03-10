@@ -108,9 +108,9 @@ export default function AgentChat({ params }: { params: Promise<{ id: Number }>}
 
   const handleSendMessage = async (e: React.FormEvent) => {
     e.preventDefault()
-
+  
     if (!inputMessage.trim() || isSending || !conversation) return
-
+  
     // Add user message
     const userMessage: Message = {
       id: Date.now(),
@@ -119,11 +119,11 @@ export default function AgentChat({ params }: { params: Promise<{ id: Number }>}
       content: inputMessage,
       created_at: new Date().toISOString(),
     }
-
+  
     setMessages((prev) => [...prev, userMessage])
     setInputMessage("")
     setIsSending(true)
-
+  
     try {
       // Send user message to the backend
       await createMessage(agentId, conversation.id, {
@@ -131,16 +131,16 @@ export default function AgentChat({ params }: { params: Promise<{ id: Number }>}
         role: userMessage.role,
         content: userMessage.content,
       })
-
+  
       const zerepyResponse = await sendMessage(agentId, userMessage.content)
       console.log("ZerepyResponse", zerepyResponse)
-
+  
       await createMessage(agentId, conversation.id, {
         conversation_id: conversation.id,
         role: "agent",
         content: JSON.stringify(zerepyResponse),
       })
-
+  
       setMessages((prev) => [
         ...prev,
         {
@@ -154,6 +154,7 @@ export default function AgentChat({ params }: { params: Promise<{ id: Number }>}
     } catch (err: any) {
       console.error("Failed to send message:", err)
       setError("Failed to send message. Please try again later.")
+    } finally {
       setIsSending(false)
     }
   }
@@ -303,7 +304,7 @@ export default function AgentChat({ params }: { params: Promise<{ id: Number }>}
           <div className="flex-1 flex flex-col border-r border-gray-200">
             {/* Messages */}
             <div className="flex-1 overflow-y-auto p-4">
-              <div className="space-y-6">
+              <div className="messages-board space-y-6">
                 {messages.length > 0 ? (
                   messages.map((message) => (
                     <div
